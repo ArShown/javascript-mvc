@@ -5,17 +5,15 @@ class Controller {
 			add: this.add.bind(this),
 			minus: this.minus.bind(this)
 		});
-		this._view.render();
+		this._view.init();
 		return this;
 	}
 
 	add() {
 		this._model.addOne();
-		this._view.render();
 	}
 
 	minus() {
 		this._model.minusOne();
-		this._view.render();
 	}
 }
