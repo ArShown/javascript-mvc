@@ -1,16 +1,17 @@
-class Model {
-	constructor() {
-		this._value = 0;
+class BaseModel {
+	constructor(data) {
+		this._data = data;
 		this._event = new Event();
 		return this;
 	}
 
-	set value(val) {
-		this._value = val;
+	set data(val) {
+		this._data = val;
+		this._event.notifyObservers(val);
 	}
 
-	get value() {
-		return this._value;
+	get data() {
+		return this._data;
 	}
 
 	subscribe(callback) {
@@ -20,14 +21,18 @@ class Model {
 	unsubscribe(eventId) {
 		return this._event.detach(eventId);
 	}
+}
+
+class Model extends BaseModel {
+	constructor() {
+		return super(0);
+	}
 
 	addOne() {
-		this._value += 1;
-		this._event.notifyObservers(this._value);
+		this.data += 1;
 	}
 
 	minusOne() {
-		this._value -= 1;
-		this._event.notifyObservers(this._value);
+		this.data -= 1;
 	}
 }

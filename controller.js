@@ -5,7 +5,6 @@ class Controller {
 			add: this.add.bind(this),
 			minus: this.minus.bind(this)
 		});
-		this._view.init();
 		return this;
 	}
 
