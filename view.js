@@ -1,6 +1,6 @@
 class BaseView {
-	constructor(model, events) {
-		this._model = model;
+	constructor(data, events) {
+		this._data = data;
 		this._events = events;
 		this.init();
 		return this;
@@ -15,15 +15,23 @@ class BaseView {
 		return false;
 	}
 
+	destroy() {
+		return false;
+	}
+
+	update(data) {
+		this._data = data;
+		this.render();
+	}
+
 	render() {
 		return false;
 	}
 }
 
-
 class View extends BaseView {
-	constructor(model, events) {
-		return super(model, events);
+	constructor(data, events) {
+		return super(data, events);
 	}
 
 	bind() {
@@ -31,11 +39,14 @@ class View extends BaseView {
 		this.answer = document.getElementById('answer');
 		document.getElementById('add').addEventListener('click', this._events.add);
 		document.getElementById('minus').addEventListener('click', this._events.minus);
-		/* 訂閱資料：當內容改變時執行事件(更新畫面) */
-		this._model.subscribe(this.render.bind(this));
+	}
+
+	destroy() {
+		document.getElementById('add').removeEventListener('click', this._events.add);
+		document.getElementById('minus').removeEventListener('click', this._events.minus);
 	}
 
 	render() {
-		this.answer.innerHTML = this._model.data;
+		this.answer.innerHTML = this._data;
 	}
 }

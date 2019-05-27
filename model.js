@@ -19,7 +19,7 @@ class BaseModel {
 	}
 
 	unsubscribe(eventId) {
-		return this._event.detach(eventId);
+		this._event.detach(eventId);
 	}
 }
 
